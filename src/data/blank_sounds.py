@@ -15,6 +15,7 @@ def get_blank_sounds_obj():
         "music.overworld.bamboo_jungle": {"sounds": [{"name": "bgm", "type": "event"}]},
         "music.overworld.cherry_grove": {"sounds": [{"name": "bgm", "type": "event"}]},
         "music.overworld.deep_dark": {"sounds": [{"name": "bgm", "type": "event"}]},
+        "music.overworld.desert": {"sounds": [{"name": "bgm", "type": "event"}]},
         "music.overworld.dripstone_caves": {
             "sounds": [{"name": "bgm", "type": "event"}]
         },

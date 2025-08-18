@@ -5,5 +5,5 @@ def get_blank_project_obj():
         "icon": "",
         "sounds": [],
         "volume": 20,
-        "version": "1.21.5",
+        "version": "1.21.7-1.21.8",
     }

@@ -1,8 +1,9 @@
 import flet as ft
+from pathlib import Path
 
 
 class HeadLineText(ft.Text):
-    def __init__(self, value):
+    def __init__(self, value: str):
         super().__init__()
         self.value = value
 
@@ -10,7 +11,7 @@ class HeadLineText(ft.Text):
 
 
 class TitleText(ft.Text):
-    def __init__(self, value):
+    def __init__(self, value: str):
         super().__init__()
         self.value = value
 
@@ -18,7 +19,7 @@ class TitleText(ft.Text):
 
 
 class BodyText(ft.Text):
-    def __init__(self, value):
+    def __init__(self, value: str):
         super().__init__()
         self.value = value
 
@@ -26,7 +27,7 @@ class BodyText(ft.Text):
 
 
 class BorderContainer(ft.Container):
-    def __init__(self, content):
+    def __init__(self, content: ft.Control):
         super().__init__()
         self.content = content
 
@@ -37,8 +38,21 @@ class BorderContainer(ft.Container):
         self.border_radius = ft.border_radius.all(5)
 
 
+class BorderImage(BorderContainer):
+    def __init__(self, src: Path):
+        self.src = src
+
+        self.content = ft.Image(
+            src=src,
+            border_radius=ft.border_radius.all(10),
+            width=565,
+            fit=ft.ImageFit.COVER,
+        )
+        super().__init__(content=self.content)
+
+
 class ExplainContainer(ft.Container):
-    def __init__(self, title, body):
+    def __init__(self, title: str, body: str):
         super().__init__()
         self.title = title
         self.body = body
@@ -57,7 +71,7 @@ class ExplainContainer(ft.Container):
 
 
 class SmallExplainContainer(ft.Container):
-    def __init__(self, title, body):
+    def __init__(self, title: str, body: str):
         super().__init__()
         self.title = title
         self.body = body
@@ -76,7 +90,13 @@ class SmallExplainContainer(ft.Container):
 
 
 class CustomTextField(ft.TextField):
-    def __init__(self, label, value="", expand=False, on_change=None):
+    def __init__(
+        self,
+        label: str,
+        value: str = "",
+        expand: bool = False,
+        on_change: ft.OptionalEventCallable = None,
+    ):
         super().__init__()
         self.label = label
         self.value = value
@@ -89,7 +109,13 @@ class CustomTextField(ft.TextField):
 
 
 class MultiLineTextField(ft.TextField):
-    def __init__(self, label, value="", expand=False, on_change=None):
+    def __init__(
+        self,
+        label: str,
+        value: str = "",
+        expand: bool = False,
+        on_change: ft.OptionalEventCallable = None,
+    ):
         super().__init__()
         self.label = label
         self.value = value
@@ -105,7 +131,13 @@ class MultiLineTextField(ft.TextField):
 
 
 class CustomButton(ft.Container):
-    def __init__(self, height, text, on_click, bgcolor=None):
+    def __init__(
+        self,
+        height: int | float,
+        text: str,
+        on_click: ft.OptionalEventCallable,
+        bgcolor: ft.Colors = None,
+    ):
         super().__init__()
         self.height = height
         self.text = text
@@ -126,7 +158,13 @@ class CustomButton(ft.Container):
 
 
 class ShortButton(CustomButton):
-    def __init__(self, height, text, on_click, bgcolor=None):
+    def __init__(
+        self,
+        height: int | float,
+        text: str,
+        on_click: ft.OptionalEventCallable,
+        bgcolor: ft.Colors = None,
+    ):
         super().__init__(height, text, on_click)
         self.width = 100
         if bgcolor:
@@ -136,7 +174,14 @@ class ShortButton(CustomButton):
 
 
 class CustomIconButton(CustomButton):
-    def __init__(self, height, text, icon, on_click):
+
+    def __init__(
+        self,
+        height: int | float,
+        text: str,
+        icon: ft.Icons,
+        on_click: ft.OptionalEventCallable,
+    ):
         super().__init__(height, text, on_click)
         self.text = ft.Text(value=text, theme_style=ft.TextThemeStyle.TITLE_SMALL)
         self.icon = ft.Icon(name=icon, color=ft.Colors.ON_SECONDARY_CONTAINER)
@@ -145,7 +190,14 @@ class CustomIconButton(CustomButton):
 
 
 class CustomDialog(ft.AlertDialog):
-    def __init__(self, icon, icon_color, title, content, actions):
+    def __init__(
+        self,
+        icon: ft.Icons,
+        icon_color: ft.Colors,
+        title: str,
+        content: ft.Control,
+        actions: list[ft.Control],
+    ):
         super().__init__()
         self.icon = ft.Icon(name=icon, color=icon_color)
         self.title = ft.Text(value=title, text_align=ft.TextAlign.CENTER)

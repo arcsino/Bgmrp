@@ -1,8 +1,8 @@
 def get_blank_pack_mcmeta():
     return {
         "pack": {
-            "pack_format": 55,
-            "supported_formats": [55, 55],
+            "pack_format": 64,
+            "supported_formats": [64, 64],
             "description": "",
         }
     }
