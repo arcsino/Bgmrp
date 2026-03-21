@@ -1,13 +1,15 @@
-import flet as ft
-import json, os, zipfile
+import json
+import os
+import zipfile
 from dataclasses import dataclass
 from pathlib import Path
 
+import flet as ft
+
+from data.blank_pack_mcmeta import get_blank_pack_mcmeta
 from data.blank_project import get_blank_project_obj
 from data.blank_sounds import get_blank_sounds_obj
-from data.blank_pack_mcmeta import get_blank_pack_mcmeta
 from data.format_version import get_format_version
-
 
 APP_DATA_PATH = Path(os.getenv("FLET_APP_STORAGE_DATA"))
 
@@ -136,6 +138,8 @@ def check_entry(obj: ProjectInfo):
 def get_pack_mcmeta(description, version):
     format_version = get_format_version()
     pack = get_blank_pack_mcmeta()
+    pack["pack"]["min_format"] = format_version[version]
+    pack["pack"]["max_format"] = format_version[version]
     pack["pack"]["pack_format"] = format_version[version]
     pack["pack"]["supported_formats"] = [
         format_version[version],
@@ -187,5 +191,7 @@ def make_rp(rp_path, obj: ProjectInfo):
             for i, sound in enumerate(obj.sounds):
                 zf.write(sound, arcname=f"assets/minecraft/sounds/bgm/{i}.ogg")
 
+    except Exception as e:
+        return e
     except Exception as e:
         return e

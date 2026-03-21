@@ -21,7 +21,7 @@ class HomeView(ft.Column):
             ft.Divider(color=ft.Colors.TRANSPARENT),  # margin
             SmallExplainContainer(
                 title="変更ログ",
-                body="・バージョン1.21.9-1.21.10, 1.21.11の追加",
+                body="・バージョン1.21.9-1.21.10, 1.21.11の追加\n・pack.mcmetaのフォーマットの変更",
             ),
             ft.Divider(color=ft.Colors.TRANSPARENT),  # margin
         ]
