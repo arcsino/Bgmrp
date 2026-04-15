@@ -1,4 +1,5 @@
 # Bgmrp
+
 <div align="center">
     <br>
         <p>
@@ -6,8 +7,8 @@
         </p>
     <br>
     <p>
-        <a href="https://www.python.org/downloads/release/python-31210/" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/python-3.12.10-blue" alt="python-3.12.10"></a>
-        <a href="https://flet.dev/" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/flet-0.27.6-ff1463" alt="flet-0.27.6"></a>
+        <a href="https://www.python.org/downloads/release/python-31210/" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/python-3.13.7-blue" alt="python-3.13.7"></a>
+        <a href="https://flet.dev/" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/flet-0.82.2-ff1463" alt="flet-0.82.2"></a>
         <a href="https://github.com/arcsino/Bgmrp/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-green" alt="license-MIT"></a>
     </p>
     <p><b>Bgmrp</b>はMinecraftにBGMを追加するリソースパックを簡単に作れるデスクトップアプリです。</p>
@@ -15,15 +16,18 @@
 </div>
 
 ## Description
+
 生成されるリソースパックは、あくまでもBGMを追加するものであって、デフォルトのBGMを置き換えるものではありません。デフォルトのBGMは再生されますし、運が悪かったり設定を間違えたら、追加したBGMは再生されません。
 
 > [!TIP]
 > 以下のコマンドで追加したBGMが必ず再生されますので、動作確認の際に実行してみてください。
+
 ```
 /playsound minecraft:bgm music @p
 ```
 
 ## Download
+
 > [!WARNING]
 > <b>このアプリはWindows専用であり、macOSでは動作しません。</b>
 
@@ -31,6 +35,7 @@
 [https://github.com/arcsino/Bgmrp/releases](https://github.com/arcsino/Bgmrp/releases)
 
 ## License
+
 Copyright (c) 2025 arcsino <br>
 Released under the MIT license <br>
 [https://github.com/arcsino/Bgmrp/blob/main/LICENSE](https://github.com/arcsino/Bgmrp/blob/main/LICENSE)
