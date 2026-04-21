@@ -1,25 +1,18 @@
 import flet as ft
 
+from views.main_view import MainView
+
 
 def main(page: ft.Page):
-    counter = ft.Text("0", size=50, data=0)
-
-    def increment_click(e):
-        counter.data += 1
-        counter.value = str(counter.data)
-
-    page.floating_action_button = ft.FloatingActionButton(
-        icon=ft.Icons.ADD, on_click=increment_click
-    )
-    page.add(
-        ft.SafeArea(
-            expand=True,
-            content=ft.Container(
-                content=counter,
-                alignment=ft.Alignment.CENTER,
-            ),
-        )
-    )
+    page.title = "Bgmrp"
+    page.window.width = 720
+    page.window.height = 480
+    page.window.resizable = False
+    page.theme_mode = ft.ThemeMode.DARK
+    page.add(MainView())
 
 
+ft.run(main)
+ft.run(main)
+ft.run(main)
 ft.run(main)
