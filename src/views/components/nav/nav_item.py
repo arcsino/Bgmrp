@@ -17,7 +17,7 @@ class NavItem(ft.Container):
         self.bgcolor = bgcolor
         self.ink = True
         self.height = 60
-        self.padding = ft.Padding(left=20, top=10, right=25, bottom=10)
+        self.padding = ft.Padding.only(left=20, top=10, right=25, bottom=10)
         self.border_radius = ft.BorderRadius.all(5)
         self.content = ft.Row(
             expand=True,

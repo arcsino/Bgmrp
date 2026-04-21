@@ -1,6 +1,6 @@
 import flet as ft
 
-from views.components.nav.nav_item import NavItem
+from views.components import NavItem
 
 
 class Navbar(ft.Column):

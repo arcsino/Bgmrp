@@ -1,15 +1,11 @@
 import flet as ft
 
-from views.components.nav.navbar import Navbar
-from views.help_view import HelpView
-from views.home_view import HomeView
-from views.make_view import MakeView
-from views.setting_view import SettingView
+from views import HelpView, HomeView, MakeView, SettingView
+from views.components import Navbar
 
 
 class MainView(ft.Row):
     def __init__(self):
-        """"""
         super().__init__()
         self.expand = True
         self.navbar = Navbar(nav_item_on_click=self.item_clicked)
