@@ -7,17 +7,16 @@ class MultiLineTextField(ft.TextField):
         label: str,
         value: str = "",
         expand: bool = False,
-        on_change: ft.EventHandler = None,
+        on_change: ft.ControlEventHandler[ft.TextField] | None = None,
     ):
         super().__init__()
         self.label = label
         self.value = value
         self.expand = expand
-        if on_change:
-            self.on_change = on_change
-
         self.min_lines = 1
         self.max_lines = 9
         self.multiline = True
         self.bgcolor = ft.Colors.SURFACE
         self.border_color = ft.Colors.ON_SURFACE_VARIANT
+        if on_change:
+            self.on_change = on_change

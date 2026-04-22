@@ -1,6 +1,6 @@
 import flet as ft
 
-from views.components import CustomButton
+from .custom_btn import CustomButton
 
 
 class CustomIconButton(CustomButton):
@@ -10,7 +10,7 @@ class CustomIconButton(CustomButton):
         height: int | float,
         text: str,
         icon: ft.IconData,
-        on_click: ft.EventHandler,
+        on_click: ft.ControlEventHandler[ft.Container],
     ):
         super().__init__(height, text, on_click)
         self.text = ft.Text(value=text, theme_style=ft.TextThemeStyle.TITLE_SMALL)

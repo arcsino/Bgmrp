@@ -1,19 +1,17 @@
 import flet as ft
 
-from views.components import CustomButton
+from .custom_btn import CustomButton
 
 
 class ShortButton(CustomButton):
+
     def __init__(
         self,
         height: int | float,
         text: str,
-        on_click: ft.EventHandler,
-        bgcolor: ft.Colors = None,
+        on_click: ft.ControlEventHandler[ft.Container],
+        bgcolor: ft.ColorValue = ft.Colors.PRIMARY_CONTAINER,
     ):
         super().__init__(height, text, on_click)
         self.width = 100
-        if bgcolor:
-            self.bgcolor = bgcolor
-        else:
-            self.bgcolor = ft.Colors.PRIMARY_CONTAINER
+        self.bgcolor = bgcolor

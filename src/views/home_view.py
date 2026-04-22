@@ -16,17 +16,21 @@ class HomeView(ft.Column):
         self.expand = True
         self.scroll = ft.ScrollMode.AUTO
         self.controls = [
-            ft.Divider(color=ft.Colors.TRANSPARENT),  # margin
-            ExplainContainer(
-                title="Bgmrp v1.0.3",
-                body="MinecraftにBGMを追加するリソースパックを簡単に作れるデスクトップアプリです。",
+            ft.Container(
+                content=ft.Image(
+                    src=str(Path("wp.png")),
+                    border_radius=ft.BorderRadius.all(10),
+                    fit=ft.BoxFit.COVER,
+                )
             ),
-            BodyText(value="※Java版限定です。"),
-            BorderImage(src=Path("images/wp.png")),
-            ft.Divider(color=ft.Colors.TRANSPARENT),  # margin
             SmallExplainContainer(
-                title="変更ログ",
-                body="・",
+                title="v1.1.0 変更ログ",
+                body="\n".join(
+                    [
+                        "・ライブラリの更新 (flet-v0.27.6 -> flet-v0.82.2)",
+                        "・MCバージョン26.1-26.1.xに対応",
+                        "・UI及びヘルプの説明文を改善",
+                    ]
+                ),
             ),
-            ft.Divider(color=ft.Colors.TRANSPARENT),  # margin
         ]

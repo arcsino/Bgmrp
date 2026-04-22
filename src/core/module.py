@@ -1,13 +1,14 @@
-import flet as ft
-import json, os, zipfile
+import json
+import os
+import zipfile
 from dataclasses import dataclass
 from pathlib import Path
 
+import flet as ft
+from data.blank_pack_mcmeta import get_blank_pack_mcmeta
 from data.blank_project import get_blank_project_obj
 from data.blank_sounds import get_blank_sounds_obj
-from data.blank_pack_mcmeta import get_blank_pack_mcmeta
 from data.format_version import get_format_version
-
 
 APP_DATA_PATH = Path(os.getenv("FLET_APP_STORAGE_DATA"))
 
@@ -113,22 +114,22 @@ def delete_project_file(filepath: Path):
 def check_entry(obj: ProjectInfo):
     entrys = [obj.name, obj.description, obj.icon, obj.sounds, obj.volume, obj.version]
     empty_error = [
-        "リソースパックの名前を入力してください。",
-        "リソースパックの説明を入力してください。",
-        "リソースパックのアイコンを選択してください。",
-        "追加するBGMを選択してください。",
-        "BGMの音量を設定してください。",
-        "Minecraftのバージョンを設定してください。",
+        "リソースパックの名前を入力してください．",
+        "リソースパックの説明を入力してください．",
+        "リソースパックのアイコンを選択してください．",
+        "追加するBGMを選択してください．",
+        "BGMの音量を設定してください．",
+        "Minecraftのバージョンを設定してください．",
     ]
     try:
         for entry, error in zip(entrys, empty_error):
             if not entry:
                 raise Exception(error)
         if not Path(obj.icon).exists():
-            raise Exception(f"{obj.icon}が見つかりません。")
+            raise Exception(f"{obj.icon}が見つかりません．")
         for sound in obj.sounds:
             if not Path(sound).exists():
-                raise Exception(f"{sound}が見つかりません。")
+                raise Exception(f"{sound}が見つかりません．")
     except Exception as e:
         return e
 
@@ -188,4 +189,5 @@ def make_rp(rp_path, obj: ProjectInfo):
                 zf.write(sound, arcname=f"assets/minecraft/sounds/bgm/{i}.ogg")
 
     except Exception as e:
+        return e
         return e

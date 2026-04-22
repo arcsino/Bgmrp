@@ -1,11 +1,11 @@
 import flet as ft
 
-from views.components import NavItem
+from .nav_item import NavItem
 
 
 class Navbar(ft.Column):
 
-    def __init__(self, nav_item_on_click: ft.EventHandler):
+    def __init__(self, nav_item_on_click: ft.Event):
         super().__init__()
         self.nav_item_on_click = nav_item_on_click
         self.width = 120

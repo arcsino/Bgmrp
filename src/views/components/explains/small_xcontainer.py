@@ -1,6 +1,7 @@
 import flet as ft
 
-from views.components import BodyText, TitleText
+from ..texts.body import BodyText
+from ..texts.title import TitleText
 
 
 class SmallExplainContainer(ft.Container):

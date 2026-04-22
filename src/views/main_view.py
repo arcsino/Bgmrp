@@ -8,7 +8,6 @@ class MainView(ft.Row):
     def __init__(self):
         super().__init__()
         self.expand = True
-        self.navbar = Navbar(nav_item_on_click=self.item_clicked)
         self.views: list[ft.Column] = [
             HomeView(),
             MakeView(),
@@ -16,7 +15,7 @@ class MainView(ft.Row):
             SettingView(),
         ]
         self.controls = [
-            self.navbar,
+            Navbar(nav_item_on_click=self.item_clicked),
             ft.VerticalDivider(width=5),
             ft.Column(
                 controls=self.views,
@@ -29,5 +28,4 @@ class MainView(ft.Row):
         for view in self.views:
             view.visible = False
         self.views[index].visible = True
-        self.update()
         self.update()

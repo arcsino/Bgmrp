@@ -2,21 +2,18 @@ import flet as ft
 
 
 class CustomButton(ft.Container):
+
     def __init__(
         self,
         height: int | float,
         text: str,
-        on_click: ft.EventHandler,
-        bgcolor: ft.Colors = None,
+        on_click: ft.ControlEventHandler[ft.Container],
+        bgcolor: ft.ColorValue = ft.Colors.PRIMARY_CONTAINER,
     ):
         super().__init__()
         self.height = height
         self.on_click = on_click
-        if bgcolor:
-            self.bgcolor = bgcolor
-        else:
-            self.bgcolor = ft.Colors.PRIMARY_CONTAINER
-
+        self.bgcolor = bgcolor
         self.ink = True
         self.expand = False
         self.alignment = ft.MainAxisAlignment.CENTER

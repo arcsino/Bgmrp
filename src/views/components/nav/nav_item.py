@@ -6,7 +6,7 @@ class NavItem(ft.Container):
         self,
         label: str,
         icon: ft.IconData,
-        on_click: ft.EventHandler,
+        on_click: ft.ControlEventHandler[ft.Container],
         bgcolor: ft.ColorValue = ft.Colors.TRANSPARENT,
         icon_color: ft.ColorValue = ft.Colors.PRIMARY,
     ):
