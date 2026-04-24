@@ -2,9 +2,9 @@ def get_blank_pack_mcmeta():
     return {
         "pack": {
             "min_format": 15,
-            "max_format": 75,
-            "pack_format": 75,
-            "supported_formats": [15, 75],
+            "max_format": 84,
+            "pack_format": 84,
+            "supported_formats": [15, 84],
             "description": "",
         }
     }
@@ -17,7 +17,7 @@ def get_blank_project_obj():
         "icon": "",
         "sounds": [],
         "volume": 20,
-        "version": "1.21.11",
+        "version": "26.1-26.1.x",
     }
 
 
@@ -64,6 +64,7 @@ def get_blank_sounds_obj():
 
 def get_format_version():
     return {
+        "26.1-26.1.x": 84,
         "1.21.11": 75,
         "1.21.9-1.21.10": 69,
         "1.21.7-1.21.8": 64,
