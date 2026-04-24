@@ -13,7 +13,7 @@ class SettingView(ft.Column):
             ft.Divider(color=ft.Colors.TRANSPARENT),  # margin
             ExplainContainer(
                 title="設定",
-                body="テーマを切り替えることができます。",
+                body="テーマを切り替えることができます．",
             ),
             ft.Switch(
                 label=" ライトテーマ",
@@ -21,7 +21,7 @@ class SettingView(ft.Column):
             ),
         ]
 
-    def theme_changed(self, _: ft.ControlEventHandler[ft.Switch]):
+    def theme_changed(self, _: ft.Event[ft.Switch]):
         self.page.theme_mode = (
             ft.ThemeMode.DARK
             if self.page.theme_mode == ft.ThemeMode.LIGHT

@@ -7,7 +7,7 @@ class CustomTextField(ft.TextField):
         label: str,
         value: str = "",
         expand: bool = False,
-        on_change: ft.ControlEventHandler[ft.TextField] | None = None,
+        on_change: ft.Event[ft.TextField] | None = None,
     ):
         super().__init__()
         self.label = label
@@ -25,7 +25,7 @@ class MultiLineTextField(ft.TextField):
         label: str,
         value: str = "",
         expand: bool = False,
-        on_change: ft.ControlEventHandler[ft.TextField] | None = None,
+        on_change: ft.Event[ft.TextField] | None = None,
     ):
         super().__init__()
         self.label = label

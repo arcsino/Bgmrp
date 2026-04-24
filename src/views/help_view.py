@@ -17,6 +17,7 @@ class HelpView(ft.Column):
         self.visible = False
         self.scroll = ft.ScrollMode.AUTO
         self.controls = [
+            ft.Divider(color=ft.Colors.TRANSPARENT),  # margin
             ExplainContainer(
                 title="リソースパックの作成方法",
                 body="以下にリソースパックの作成方法，作成時の注意点などを説明します．",

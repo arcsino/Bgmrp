@@ -6,13 +6,13 @@ class NavItem(ft.Container):
         self,
         label: str,
         icon: ft.IconData,
-        on_click: ft.ControlEventHandler[ft.Container],
+        on_click: ft.Event[ft.Container],
         bgcolor: ft.ColorValue = ft.Colors.TRANSPARENT,
         icon_color: ft.ColorValue = ft.Colors.PRIMARY,
     ):
         super().__init__()
         self.label = label
-        self.icon = ft.Icon(icon=icon, color=icon_color)
+        self.icon = ft.Icon(icon, color=icon_color)
         self.on_click = on_click
         self.bgcolor = bgcolor
         self.ink = True

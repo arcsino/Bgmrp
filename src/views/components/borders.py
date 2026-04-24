@@ -20,7 +20,7 @@ class BorderImage(BorderContainer):
         self.content = ft.Image(
             src=str(self.src),
             border_radius=ft.BorderRadius.all(10),
-            width=565,
+            width=500,
             fit=ft.BoxFit.COVER,
         )
         super().__init__(content=self.content)

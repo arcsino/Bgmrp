@@ -7,7 +7,7 @@ class CustomButton(ft.Container):
         self,
         height: int | float,
         text: str,
-        on_click: ft.ControlEventHandler[ft.Container],
+        on_click: ft.Event[ft.Container],
         bgcolor: ft.ColorValue = ft.Colors.PRIMARY_CONTAINER,
     ):
         super().__init__()
@@ -29,11 +29,11 @@ class CustomIconButton(CustomButton):
         height: int | float,
         text: str,
         icon: ft.IconData,
-        on_click: ft.ControlEventHandler[ft.Container],
+        on_click: ft.Event[ft.Container],
     ):
         super().__init__(height, text, on_click)
         self.text = ft.Text(value=text, theme_style=ft.TextThemeStyle.TITLE_SMALL)
-        self.icon = ft.Icon(name=icon, color=ft.Colors.ON_SECONDARY_CONTAINER)
+        self.icon = ft.Icon(icon, color=ft.Colors.ON_SECONDARY_CONTAINER)
         self.content = ft.Row(controls=[self.icon, self.text])
 
 
@@ -42,7 +42,7 @@ class ShortButton(CustomButton):
         self,
         height: int | float,
         text: str,
-        on_click: ft.ControlEventHandler,
+        on_click: ft.Event,
         bgcolor: ft.ColorValue = None,
     ):
         super().__init__(height, text, on_click)
