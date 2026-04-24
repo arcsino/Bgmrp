@@ -1,6 +1,9 @@
+from pathlib import Path
+
 import flet as ft
 
 from core.module import (
+    ProjectInfo,
     delete_project_file,
     get_icon_image,
     get_project_files,
@@ -18,16 +21,15 @@ from views.components import (
 
 
 class NewProject(ft.Column):
-    def __init__(self, new_project):
+    def __init__(self, new_project: ft.Event):
         super().__init__()
         self.new_project = new_project
-
         self.textfield = CustomTextField(label="新規プロジェクト")
         self.controls = [
             ft.Divider(color=ft.Colors.TRANSPARENT),  # margin
             ExplainContainer(
                 title="プロジェクト一覧",
-                body="プロジェクトに作成時の情報を保存しておくことで、追加の変更がしやすくなります。",
+                body="プロジェクトに作成時の情報を保存しておくことで，追加の変更がしやすくなります．",
             ),
             ft.Row(
                 controls=[
@@ -42,19 +44,25 @@ class NewProject(ft.Column):
             ft.Divider(height=5),
         ]
 
-    def new_clicked(self, _: ft.ControlEventHandler[ft.Button]):
+    def new_clicked(self, _: ft.Event[ft.Button]):
         self.new_project()
 
 
 class ProjectItem(ft.Column):
-    def __init__(self, project_path, update_list, edit_project, delete_project):
+
+    def __init__(
+        self,
+        project_path: Path,
+        update_list: ft.Event,
+        edit_project: ft.Event,
+        delete_project: ft.Event,
+    ):
         super().__init__()
-        self.project_path = project_path
+        self.project_path: Path = project_path
         self.update_list = update_list
         self.edit_project = edit_project
         self.delete_project = delete_project
-
-        self.project_obj = get_project_obj(self.project_path)
+        self.project_obj: ProjectInfo = get_project_obj(self.project_path)
         self.project_name = TitleText(value=self.project_path.stem)
         self.textfield = CustomTextField(label="変更後のプロジェクト名")
         self.change_default_view()
@@ -118,33 +126,83 @@ class ProjectItem(ft.Column):
             )
         ]
 
-    def rename_project(self, _):
+    def rename_project(self, _: ft.Event[ft.PopupMenuItem]):
         self.textfield.value = self.project_path.stem
         self.change_edit_view()
         self.update()
 
-    def save_project(self, _):
-        self.project_name.value = self.textfield.value
-        self.project_path = rename_project_file(self.project_path, self.textfield.value)
+    def save_project(self, _: ft.Event[ft.IconButton]):
+        renamed = rename_project_file(self.project_path, self.textfield.value)
+        if isinstance(renamed, Exception):
+            self.dialog_open(
+                icon=ft.Icons.CANCEL,
+                icon_color=ft.Colors.RED,
+                title=str(renamed),
+                content=f"入力されたプロジェクト名: {self.textfield.value.strip()}",
+                actions=[
+                    ft.FilledButton(
+                        content=ft.Text(value="閉じる", color=ft.Colors.ON_SURFACE),
+                        bgcolor=ft.Colors.PRIMARY_CONTAINER,
+                        on_click=self.dialog_close,
+                    )
+                ],
+            )
+            return
+        else:
+            self.dialog_open(
+                icon=ft.Icons.INFO,
+                icon_color=ft.Colors.BLUE,
+                title="プロジェクト名を変更しました！",
+                content=f"変更後のプロジェクト名: {self.textfield.value.strip()}",
+                actions=[
+                    ft.FilledButton(
+                        content=ft.Text(value="閉じる", color=ft.Colors.ON_SURFACE),
+                        bgcolor=ft.Colors.PRIMARY_CONTAINER,
+                        on_click=self.dialog_close,
+                    )
+                ],
+            )
+        self.project_name.value = renamed.stem
+        self.project_path = renamed
         self.textfield.value = ""
-        self.index = self.change_default_view()
+        self.change_default_view()
         self.update_list()  # update()
 
-    def edit_clicked(self, _):
+    def edit_clicked(self, _: ft.Event[ft.PopupMenuItem]):
         self.edit_project(self)
 
-    def delete_clicked(self, _):
+    def delete_clicked(self, _: ft.Event[ft.PopupMenuItem]):
         self.delete_project(self)
+
+    def dialog_open(
+        self,
+        icon: ft.IconData,
+        icon_color: ft.ColorValue,
+        title: str,
+        content: str,
+        actions: list[ft.FilledButton],
+    ):
+        self.dlg = CustomDialog(
+            icon=icon,
+            icon_color=icon_color,
+            title=title,
+            content=content,
+            actions=actions,
+        )
+        self.page.show_dialog(self.dlg)
+
+    def dialog_close(self, _: ft.Event[ft.FilledButton]):
+        self.page.pop_dialog()
 
 
 class ProjectList(ft.Column):
-    def __init__(self, edit_project):
+    def __init__(self, edit_project: ft.Event):
         super().__init__()
         self.edit_project = edit_project
 
         self.expand = True
         self.projects = get_project_files()
-        self.new = NewProject(new_project=self.new_project)
+        self.new = NewProject(self.new_project)
         self.project_items = ft.Column(expand=True, scroll=ft.ScrollMode.AUTO)
         self.controls = [self.new, self.project_items]
         self.project_items.controls = [
@@ -172,30 +230,30 @@ class ProjectList(ft.Column):
 
     def new_project(self):
         new = new_project_file(self.new.textfield.value)
-        if new:
+        if isinstance(new, Exception):
             self.dialog_open(
-                icon=ft.Icons.INFO,
-                icon_color=ft.Colors.BLUE,
-                title="プロジェクトを作成しました",
-                content=f"作成したプロジェクト: {self.new.textfield.value}",
+                icon=ft.Icons.CANCEL,
+                icon_color=ft.Colors.RED,
+                title=str(new),
+                content=f"入力されたプロジェクト名: {self.new.textfield.value.strip()}",
                 actions=[
                     ft.FilledButton(
-                        ft.Text(value="OK", color=ft.Colors.WHITE),
-                        bgcolor=ft.Colors.BLUE,
+                        content=ft.Text(value="閉じる", color=ft.Colors.ON_SURFACE),
+                        bgcolor=ft.Colors.PRIMARY_CONTAINER,
                         on_click=self.dialog_close,
                     )
                 ],
             )
         else:
             self.dialog_open(
-                icon=ft.Icons.ERROR,
-                icon_color=ft.Colors.RED,
-                title="エラー",
-                content="プロジェクト名を入力してください！",
+                icon=ft.Icons.CHECK_CIRCLE,
+                icon_color=ft.Colors.BLUE,
+                title="プロジェクトを作成しました",
+                content=f"作成したプロジェクト: {self.new.textfield.value.strip()}",
                 actions=[
                     ft.FilledButton(
-                        content=ft.Text(value="OK", color=ft.Colors.WHITE),
-                        bgcolor=ft.Colors.BLUE,
+                        ft.Text(value="閉じる", color=ft.Colors.ON_SURFACE),
+                        bgcolor=ft.Colors.PRIMARY_CONTAINER,
                         on_click=self.dialog_close,
                     )
                 ],
@@ -208,16 +266,16 @@ class ProjectList(ft.Column):
             icon=ft.Icons.WARNING,
             icon_color=ft.Colors.AMBER,
             title="本当に削除しますか？",
-            content=f"削除すると二度と元に戻りません。\n削除するプロジェクト: {item.project_name.value}",
+            content=f"削除すると二度と元に戻りません．\n削除するプロジェクト: {item.project_name.value}",
             actions=[
                 ft.FilledButton(
-                    content=ft.Text(value="No", color=ft.Colors.WHITE),
-                    bgcolor=ft.Colors.BLUE,
+                    content=ft.Text(value="いいえ", color=ft.Colors.ON_SURFACE),
+                    bgcolor=ft.Colors.PRIMARY_CONTAINER,
                     on_click=self.dialog_close,
                 ),
                 ft.FilledButton(
-                    content=ft.Text(value="Delete", color=ft.Colors.WHITE),
-                    bgcolor=ft.Colors.RED,
+                    content=ft.Text(value="削除する", color=ft.Colors.ON_SURFACE),
+                    bgcolor=ft.Colors.ERROR_CONTAINER,
                     on_click=lambda _: self.delete_project(item),
                 ),
             ],
@@ -228,7 +286,14 @@ class ProjectList(ft.Column):
         self.update_project_items()
         self.dialog_close(item)
 
-    def dialog_open(self, icon, icon_color, title, content, actions):
+    def dialog_open(
+        self,
+        icon: ft.IconData,
+        icon_color: ft.ColorValue,
+        title: str,
+        content: str,
+        actions: list[ft.FilledButton],
+    ):
         self.dlg = CustomDialog(
             icon=icon,
             icon_color=icon_color,
@@ -238,5 +303,5 @@ class ProjectList(ft.Column):
         )
         self.page.show_dialog(self.dlg)
 
-    def dialog_close(self, _):
+    def dialog_close(self, _: ft.Event[ft.FilledButton]):
         self.page.pop_dialog()

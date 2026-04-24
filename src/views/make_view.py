@@ -1,6 +1,6 @@
 import flet as ft
 
-from views.components import ProjectItem, ProjectList
+from views.components import EditProject, ProjectItem, ProjectList
 
 
 class MakeView(ft.Column):
@@ -18,9 +18,9 @@ class MakeView(ft.Column):
     def handle_edit_project(self, item: ProjectItem):
         """when PopupMenuButton() in ProjectItem() is clicked"""
         self.controls = [
-            # EditProject(
-            #     project_path=item.project_path,
-            #     back_clicking=self.project_list,
-            # )
+            EditProject(
+                project_path=item.project_path,
+                back_clicking=self.handle_project_list,
+            )
         ]
         self.update()

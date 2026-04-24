@@ -1,9 +1,7 @@
 import json
-import os
 import zipfile
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any
 
 from .constants import (
     get_blank_pack_mcmeta,
@@ -100,23 +98,37 @@ def get_icon_image(filepath: str) -> str:
         return "square.png"
 
 
-def rename_project_file(filepath: Path, newname: str) -> Path:
-    filepath.rename(get_storage_path() / f"{newname}.json")
-    return filepath
+def rename_project_file(filepath: Path, newname: str) -> Path | Exception:
+    try:
+        normalized_name = newname.strip()
+        if normalized_name == "":
+            raise Exception("プロジェクト名を入力してください！")
+        renamed_project = get_storage_path() / f"{normalized_name}.json"
+        if renamed_project.exists() and renamed_project != filepath:
+            raise Exception("同じ名前のプロジェクトが既に存在します！")
+        filepath.rename(renamed_project)
+        return renamed_project
+    except Exception as e:
+        return e
 
 
-def get_project_files():
+def get_project_files() -> list[Path]:
     projects = list[Path](get_storage_path().glob("*.json"))
     projects.sort()
     return projects
 
 
-def new_project_file(filename) -> bool:
-    if filename == "":
-        return False
-    new_project = get_storage_path() / f"{filename}.json"
-    new_project.touch(exist_ok=False)
-    return True
+def new_project_file(filename: str) -> Exception | None:
+    try:
+        normalized_name = filename.strip()
+        if normalized_name == "":
+            raise Exception("プロジェクト名を入力してください！")
+        new_project = get_storage_path() / f"{normalized_name}.json"
+        if new_project.exists():
+            raise Exception("同じ名前のプロジェクトが既に存在します！")
+        new_project.touch(exist_ok=False)
+    except Exception as e:
+        return e
 
 
 def delete_project_file(filepath: Path):
@@ -135,7 +147,7 @@ def check_entry(obj: ProjectInfo):
         "Minecraftのバージョンを設定してください．",
     ]
     try:
-        for entry, error in zip[tuple[Any, str]](entrys, empty_error):
+        for entry, error in zip(entrys, empty_error):
             if not entry:
                 raise Exception(error)
         if not Path(obj.icon).exists():
@@ -150,11 +162,9 @@ def check_entry(obj: ProjectInfo):
 def get_pack_mcmeta(description, version):
     format_version = get_format_version()
     pack = get_blank_pack_mcmeta()
+    pack["pack"]["max_format"] = format_version[version]
     pack["pack"]["pack_format"] = format_version[version]
-    pack["pack"]["supported_formats"] = [
-        format_version[version],
-        format_version[version],
-    ]
+    pack["pack"]["supported_formats"][1] = format_version[version]
     pack["pack"]["description"] = description
     return pack
 
@@ -202,5 +212,4 @@ def make_rp(rp_path, obj: ProjectInfo):
                 zf.write(sound, arcname=f"assets/minecraft/sounds/bgm/{i}.ogg")
 
     except Exception as e:
-        return e
         return e

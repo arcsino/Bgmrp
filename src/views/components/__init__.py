@@ -25,4 +25,5 @@ __all__ = [
     "CustomDialog,",
     "ProjectList",
     "ProjectItem",
+    "EditProject",
 ]
