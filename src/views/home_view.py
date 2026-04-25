@@ -2,12 +2,7 @@ from pathlib import Path
 
 import flet as ft
 
-from views.components import (
-    BodyText,
-    BorderImage,
-    ExplainContainer,
-    SmallExplainContainer,
-)
+from views.components import SmallExplainContainer
 
 
 class HomeView(ft.Column):

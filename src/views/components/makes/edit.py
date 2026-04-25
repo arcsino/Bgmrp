@@ -10,7 +10,7 @@ from core.module import (
     make_rp,
     write_project_info,
 )
-from views.components import CustomDialog, CustomIconButton, TitleText
+from views.components import CustomDialog
 
 from .tabs import DescriptionTab, IconTab, NameTab, SoundsTab, VersionTab, VolumeTab
 
@@ -186,7 +186,7 @@ class EditProject(ft.Column):
             icon=ft.Icons.INFO,
             icon_color=ft.Colors.BLUE,
             title="プロジェクトを保存しました！",
-            content="ドキュメントにあるfletフォルダを削除すると，データが消えます．",
+            content=f"{self.project_path}を削除すると，データが消えます．",
             actions=[
                 ft.FilledButton(
                     content=ft.Text(value="閉じる", color=ft.Colors.ON_SURFACE),

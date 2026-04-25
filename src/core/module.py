@@ -13,17 +13,12 @@ from .constants import (
 _APP_STORAGE_PATH: Path | None = None
 
 
-def init_storage_path(path: str | Path | None) -> None:
-    global _APP_STORAGE_PATH
-    if path is None:
-        path = Path.home() / ".bgmrp"
-    _APP_STORAGE_PATH = Path(path)
-    _APP_STORAGE_PATH.mkdir(parents=True, exist_ok=True)
-
-
 def get_storage_path() -> Path:
+    global _APP_STORAGE_PATH
     if _APP_STORAGE_PATH is None:
-        raise RuntimeError("storage path is not initialized")
+        _APP_STORAGE_PATH = Path.home() / ".bgmrp"
+        if not _APP_STORAGE_PATH.exists():
+            _APP_STORAGE_PATH.mkdir(parents=True, exist_ok=True)
     return _APP_STORAGE_PATH
 
 
@@ -208,7 +203,7 @@ def make_rp(rp_path, obj: ProjectInfo):
             zf.write(obj.icon, arcname="pack.png")
 
             # *.ogg
-            for i, sound in enumerate[str](obj.sounds):
+            for i, sound in enumerate(obj.sounds):
                 zf.write(sound, arcname=f"assets/minecraft/sounds/bgm/{i}.ogg")
 
     except Exception as e:

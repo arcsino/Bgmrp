@@ -16,12 +16,11 @@ class BorderContainer(ft.Container):
 
 class BorderImage(BorderContainer):
     def __init__(self, src: Path | str):
-        self.src = Path(src) if isinstance(src, str) else src
-        self.content = ft.Image(
+        self.src = src
+        self.img = ft.Image(
             src=str(self.src),
             border_radius=ft.BorderRadius.all(10),
             width=500,
             fit=ft.BoxFit.COVER,
         )
-        super().__init__(content=self.content)
-        super().__init__(content=self.content)
+        super().__init__(content=self.img)

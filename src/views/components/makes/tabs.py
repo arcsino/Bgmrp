@@ -79,7 +79,7 @@ class IconTab(ft.Column):
         self.controls = [
             ft.Divider(color=ft.Colors.TRANSPARENT),  # margin
             BodyText(
-                value="リソースパックのアイコンを選択してください．画像ファイルは拡張子.PNGです．"
+                value="リソースパックのアイコンを選択してください．画像ファイルはPNG形式です．"
             ),
             ft.Row(
                 controls=[
@@ -141,7 +141,7 @@ class SoundsTab(ft.Column):
         self.controls = [
             ft.Divider(color=ft.Colors.TRANSPARENT),  # margin
             BodyText(
-                value="追加するBGMを選択してください．オーディオファイルは拡張子.OGGです．"
+                value="追加するBGMを選択してください．オーディオファイルはOGG形式です．"
             ),
             ft.Row(
                 controls=[
@@ -171,7 +171,6 @@ class SoundsTab(ft.Column):
                     for index, path in enumerate(self.sounds)
                 ],
             ),
-            ft.Divider(color=ft.Colors.TRANSPARENT),  # margin
         ]
 
     def get_sound_item(self, path, index):
@@ -257,7 +256,7 @@ class VersionTab(ft.Column):
         )
         self.controls = [
             ft.Divider(color=ft.Colors.TRANSPARENT),  # margin
-            BodyText(value="Minecraftのバージョンを設定してください．"),
+            BodyText(value="マイクラのバージョンを設定してください．"),
             self.dropdown,
         ]
 
