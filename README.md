@@ -21,10 +21,9 @@
 
 > [!TIP]
 > 以下のコマンドで追加したBGMが必ず再生されますので，動作確認の際に実行してみてください．
-
-```
-/playsound minecraft:bgm music @p
-```
+> ```
+> /playsound minecraft:bgm music @p
+> ```
 
 ## Download
 
