@@ -247,7 +247,7 @@ class ProjectList(ft.Column):
         else:
             self.dialog_open(
                 icon=ft.Icons.CHECK_CIRCLE,
-                icon_color=ft.Colors.BLUE,
+                icon_color=ft.Colors.GREEN,
                 title="プロジェクトを作成しました",
                 content=f"作成したプロジェクト: {self.new.textfield.value.strip()}",
                 actions=[

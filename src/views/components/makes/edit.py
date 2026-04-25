@@ -226,7 +226,7 @@ class EditProject(ft.Column):
             rp_path = Path(directory_path) / f"{project_obj.name}.zip"
             self.dialog_open(
                 icon=ft.Icons.HOURGLASS_TOP,
-                icon_color=ft.Colors.ORANGE,
+                icon_color=ft.Colors.AMBER,
                 title="リソースパックを作成中...",
                 content="オーディオファイルの数やサイズによっては，時間がかかる場合があります．",
                 actions=[],
